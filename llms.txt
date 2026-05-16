@@ -1,0 +1,48 @@
+# coldemail.club
+
+> Cold email copywriting as a service. We write cold email sequences that boost open rates and get more replies, so B2B founders, sales teams, and outbound agencies can crush their outbound sales goals.
+
+## What we do
+
+coldemail.club is a productized service that delivers done-for-you cold email copy. Each engagement includes:
+
+- Discovery call to learn your business, ICP, and campaign goals
+- Custom 4–6 email sequence written from scratch (subject lines + body + follow-ups)
+- A/B variant subject lines and opening hooks
+- Unlimited revisions until the copy performs
+- Setup help inside your sending tool of choice (Instantly, Smartlead, Lemlist, Apollo, Lemlist)
+- Deliverability review (SPF, DKIM, DMARC, warmup, domain reputation)
+- Full IP ownership transferred to the client on delivery
+
+## Who it is for
+
+- B2B SaaS founders running outbound themselves
+- Outbound agencies and lead-gen shops who want copy expertise on tap
+- Sales teams whose SDRs are writing their own templates
+- Recruiters running candidate outreach
+- Anyone whose cold email reply rate is lower than they want
+
+## Process
+
+1. **Discovery & Strategy** — Understand your offer, audience, and outcome you want from the campaign.
+2. **Custom Sequence** — Write the full email sequence designed for open and reply rates.
+3. **Launch & Optimize** — Help set up the campaign, A/B test variants, and revise until results land.
+
+## Free tools
+
+- [Spam Score Checker](https://coldemail.club/tools/spam-score-checker/) — paste a cold email, get an instant 0–100 spam score, flagged phrases, and structural fixes. 100% client-side, no signup.
+- Subject Line Generator (coming soon)
+- Cold Email Template Library (coming soon)
+- Reply Rate Predictor (coming soon)
+- Deliverability Audit (coming soon)
+- Personalization Snippet Generator (coming soon)
+
+## Pages
+
+- [Homepage](https://coldemail.club/): Service overview, process, benefits, FAQ.
+- [Free tools hub](https://coldemail.club/tools/): All free cold-email tools.
+- [Spam Score Checker](https://coldemail.club/tools/spam-score-checker/): Free tool to audit a single cold email for spam triggers.
+
+## How to engage
+
+Book a free 20-minute discovery call at [coldemail.club/#book](https://coldemail.club/#book). No pitch, no pressure — we audit your current outbound and outline what to fix first. Free email audits are also available without a call.
