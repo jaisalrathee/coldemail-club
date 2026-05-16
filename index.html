@@ -86,8 +86,9 @@
     box-shadow: 0 0 16px var(--accent);
   }
   .nav-links { display: flex; gap: 32px; align-items: center; }
-  .nav-links a { color: var(--muted); text-decoration: none; font-size: 14px; font-weight: 500; transition: color .2s; }
-  .nav-links a:hover { color: var(--text); }
+  .nav-links a:not(.btn) { color: var(--muted); text-decoration: none; font-size: 14px; font-weight: 500; transition: color .2s; }
+  .nav-links a:not(.btn):hover { color: var(--text); }
+  .nav-links a.btn-primary { color: #fff; }
   @media (max-width: 768px) { .nav-links a:not(.btn):not(.theme-toggle) { display: none; } }
 
   .theme-toggle {
@@ -504,7 +505,7 @@
   <div class="container">
     <div class="section-head">
       <div class="eyebrow">How it works</div>
-      <h2>Cold outreach doesn't have to be hard. <span class="serif">We make it easy.</span></h2>
+      <h2>Cold outreach doesn't have to be hard.<br><span class="serif">We make it easy.</span></h2>
     </div>
     <div class="steps">
       <div class="step">
