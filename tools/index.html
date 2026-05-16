@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Free Cold Email Tools — coldemail.club</title>
+<meta name="description" content="Free tools to write better cold emails, check spam scores, generate subject lines, and boost your reply rates." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f; --bg-2: #11111a; --card: #15151f;
+    --border: rgba(255,255,255,0.08);
+    --text: #ECECF1; --muted: #9b9ba8;
+    --accent: #FF5C28; --accent-2: #FFB347;
+    --green: #3ddc97;
+    --nav-bg: rgba(10,10,15,0.75);
+    --btn-secondary-bg: rgba(255,255,255,0.06);
+    --btn-secondary-hover: rgba(255,255,255,0.1);
+  }
+  [data-theme="light"] {
+    --bg: #fafaf7; --bg-2: #f3f3ee; --card: #ffffff;
+    --border: rgba(0,0,0,0.08);
+    --text: #18181f; --muted: #6b6b78;
+    --accent: #FF5C28; --accent-2: #FF8A3D; --green: #16a974;
+    --nav-bg: rgba(250,250,247,0.8);
+    --btn-secondary-bg: rgba(0,0,0,0.04);
+    --btn-secondary-hover: rgba(0,0,0,0.08);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: var(--bg); color: var(--text);
+    line-height: 1.6; letter-spacing: -0.3px;
+    -webkit-font-smoothing: antialiased;
+    transition: background .3s, color .3s;
+  }
+  h1, h2, h3, p, a, button, span, div, li { letter-spacing: -0.3px; }
+  .serif { font-family: 'Instrument Serif', serif; font-style: italic; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+  nav {
+    position: sticky; top: 0; z-index: 50;
+    backdrop-filter: blur(16px);
+    background: var(--nav-bg);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; padding: 18px 0; }
+  .logo { font-weight: 800; font-size: 20px; display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--text); }
+  .logo-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 16px var(--accent); }
+  .nav-links { display: flex; gap: 28px; align-items: center; }
+  .nav-links a { color: var(--muted); text-decoration: none; font-size: 14px; font-weight: 500; }
+  .nav-links a:hover { color: var(--text); }
+  .theme-toggle {
+    width: 38px; height: 38px; border-radius: 50%;
+    background: var(--btn-secondary-bg);
+    border: 1px solid var(--border); color: var(--text);
+    cursor: pointer; display: inline-flex; align-items: center; justify-content: center;
+    transition: transform .2s, background .2s;
+  }
+  .theme-toggle:hover { transform: rotate(15deg); background: var(--btn-secondary-hover); }
+  .theme-toggle svg { width: 18px; height: 18px; }
+  .theme-toggle .sun { display: none; } .theme-toggle .moon { display: block; }
+  [data-theme="light"] .theme-toggle .sun { display: block; }
+  [data-theme="light"] .theme-toggle .moon { display: none; }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 14px 24px; border-radius: 100px;
+    font-weight: 600; font-size: 15px; text-decoration: none;
+    transition: all .2s; border: none; cursor: pointer;
+  }
+  .btn-primary { background: var(--accent); color: #fff; box-shadow: 0 8px 32px rgba(255,92,40,0.35); }
+  .btn-primary:hover { transform: translateY(-2px); }
+
+  header.hero {
+    text-align: center;
+    padding: 100px 0 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  header.hero::before {
+    content: ''; position: absolute; top: -200px; left: 50%; transform: translateX(-50%);
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(255,92,40,0.2) 0%, transparent 60%);
+    filter: blur(60px); z-index: 0;
+  }
+  .hero-inner { position: relative; z-index: 1; }
+  .eyebrow {
+    text-transform: uppercase; letter-spacing: 3px;
+    font-size: 13px; color: var(--accent); font-weight: 600;
+    margin-bottom: 24px;
+  }
+  h1 {
+    font-size: clamp(40px, 6vw, 72px);
+    line-height: 1.05; font-weight: 800;
+    margin-bottom: 20px;
+  }
+  h1 .highlight {
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .hero p { color: var(--muted); font-size: 19px; max-width: 620px; margin: 0 auto; }
+
+  main { padding: 60px 0 120px; }
+  .tools-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+  }
+  @media (max-width: 920px) { .tools-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) { .tools-grid { grid-template-columns: 1fr; } }
+  .tool-card {
+    background: linear-gradient(180deg, var(--card) 0%, var(--bg-2) 100%);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 32px;
+    text-decoration: none; color: inherit;
+    transition: transform .3s, border-color .3s, box-shadow .3s;
+    position: relative;
+    display: flex; flex-direction: column;
+    min-height: 240px;
+  }
+  .tool-card:not(.soon):hover {
+    transform: translateY(-6px);
+    border-color: rgba(255,92,40,0.3);
+    box-shadow: 0 20px 60px rgba(255,92,40,0.15);
+  }
+  .tool-card.soon { opacity: .55; cursor: not-allowed; }
+  .tool-emoji {
+    font-size: 40px; margin-bottom: 16px;
+    filter: drop-shadow(0 0 16px rgba(255,92,40,0.5));
+  }
+  .tool-card h3 {
+    font-size: 22px; font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .tool-card p { color: var(--muted); font-size: 14px; flex: 1; }
+  .tool-badge {
+    display: inline-block; margin-top: 16px;
+    font-size: 12px; font-weight: 600;
+    padding: 4px 10px; border-radius: 100px;
+    background: rgba(61,220,151,0.15); color: var(--green);
+    align-self: flex-start;
+  }
+  .tool-badge.soon-badge {
+    background: rgba(255,255,255,0.06);
+    color: var(--muted);
+  }
+  [data-theme="light"] .tool-badge.soon-badge { background: rgba(0,0,0,0.06); }
+  .tool-arrow {
+    position: absolute; top: 28px; right: 28px;
+    color: var(--muted); font-size: 18px;
+    transition: transform .2s, color .2s;
+  }
+  .tool-card:not(.soon):hover .tool-arrow { color: var(--accent); transform: translate(4px, -4px); }
+
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 40px 0; text-align: center;
+    color: var(--muted); font-size: 14px;
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="container nav-inner">
+    <a class="logo" href="../"><span class="logo-dot"></span>coldemail.club</a>
+    <div class="nav-links">
+      <a href="../#how">How it works</a>
+      <a href="./">Tools</a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      </button>
+      <a href="../#book" class="btn btn-primary">Book a call 🤙</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="container hero-inner">
+    <div class="eyebrow">Free Cold Email Tools</div>
+    <h1>Cold email tools that <span class="highlight">actually help</span></h1>
+    <p>Free, instant, no signup. Built by the team that writes cold emails for a living.</p>
+  </div>
+</header>
+
+<main>
+  <div class="container">
+    <div class="tools-grid">
+
+      <a class="tool-card" href="./spam-score-checker/">
+        <div class="tool-emoji">🚫</div>
+        <h3>Spam Score Checker</h3>
+        <p>Paste your email and get an instant spam score, flagged phrases, and fixes.</p>
+        <span class="tool-badge">Live</span>
+        <span class="tool-arrow">→</span>
+      </a>
+
+      <a class="tool-card soon" href="#">
+        <div class="tool-emoji">✨</div>
+        <h3>Subject Line Generator</h3>
+        <p>Enter your offer and ICP — get 20 subject lines tuned for open rates.</p>
+        <span class="tool-badge soon-badge">Coming soon</span>
+        <span class="tool-arrow">→</span>
+      </a>
+
+      <a class="tool-card soon" href="#">
+        <div class="tool-emoji">📚</div>
+        <h3>Template Library</h3>
+        <p>30+ proven cold email templates by use case — SaaS, agency, recruiting.</p>
+        <span class="tool-badge soon-badge">Coming soon</span>
+        <span class="tool-arrow">→</span>
+      </a>
+
+      <a class="tool-card soon" href="#">
+        <div class="tool-emoji">📈</div>
+        <h3>Reply Rate Predictor</h3>
+        <p>Paste your email, get a predicted reply rate plus three specific rewrites.</p>
+        <span class="tool-badge soon-badge">Coming soon</span>
+        <span class="tool-arrow">→</span>
+      </a>
+
+      <a class="tool-card soon" href="#">
+        <div class="tool-emoji">🛡️</div>
+        <h3>Deliverability Audit</h3>
+        <p>Check your domain's SPF, DKIM, DMARC, and sender reputation in seconds.</p>
+        <span class="tool-badge soon-badge">Coming soon</span>
+        <span class="tool-arrow">→</span>
+      </a>
+
+      <a class="tool-card soon" href="#">
+        <div class="tool-emoji">🎯</div>
+        <h3>Personalization Snippets</h3>
+        <p>Drop a LinkedIn URL, get three first-line hooks tailored to the prospect.</p>
+        <span class="tool-badge soon-badge">Coming soon</span>
+        <span class="tool-arrow">→</span>
+      </a>
+
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="logo" style="justify-content:center;margin-bottom:8px;"><span class="logo-dot"></span>coldemail.club</div>
+    © 2026 coldemail.club — Cold emails that get replies.
+  </div>
+</footer>
+
+<script>
+  (function(){
+    const root = document.documentElement;
+    if (localStorage.getItem('theme') === 'light') root.setAttribute('data-theme', 'light');
+    document.getElementById('themeToggle').addEventListener('click', () => {
+      const isLight = root.getAttribute('data-theme') === 'light';
+      if (isLight) { root.removeAttribute('data-theme'); localStorage.setItem('theme', 'dark'); }
+      else { root.setAttribute('data-theme', 'light'); localStorage.setItem('theme', 'light'); }
+    });
+  })();
+</script>
+</body>
+</html>

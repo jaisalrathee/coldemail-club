@@ -1,0 +1,12 @@
+{
+  "name": "coldemail-club",
+  "version": "1.0.0",
+  "private": true,
+  "description": "coldemail.club — Cold Email Copywriting as a Service",
+  "scripts": {
+    "start": "serve -s -l ${PORT:-3000} ."
+  },
+  "dependencies": {
+    "serve": "^14.2.4"
+  }
+}

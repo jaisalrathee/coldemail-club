@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Free Cold Email Spam Score Checker — coldemail.club</title>
+<meta name="description" content="Free spam score checker for cold emails. Paste your email and instantly see flagged spam phrases, formatting issues, and deliverability fixes." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f; --bg-2: #11111a; --card: #15151f;
+    --border: rgba(255,255,255,0.08);
+    --text: #ECECF1; --muted: #9b9ba8;
+    --accent: #FF5C28; --accent-2: #FFB347;
+    --green: #3ddc97; --yellow: #FFB347; --red: #ff5f57;
+    --nav-bg: rgba(10,10,15,0.75);
+    --btn-secondary-bg: rgba(255,255,255,0.06);
+    --btn-secondary-hover: rgba(255,255,255,0.1);
+    --input-bg: rgba(255,255,255,0.03);
+    --highlight-bg: rgba(255,92,40,0.22);
+  }
+  [data-theme="light"] {
+    --bg: #fafaf7; --bg-2: #f3f3ee; --card: #ffffff;
+    --border: rgba(0,0,0,0.08);
+    --text: #18181f; --muted: #6b6b78;
+    --accent: #FF5C28; --accent-2: #FF8A3D; --green: #16a974; --red: #e53e3e;
+    --nav-bg: rgba(250,250,247,0.8);
+    --btn-secondary-bg: rgba(0,0,0,0.04);
+    --btn-secondary-hover: rgba(0,0,0,0.08);
+    --input-bg: #ffffff;
+    --highlight-bg: rgba(255,92,40,0.18);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: var(--bg); color: var(--text);
+    line-height: 1.6; letter-spacing: -0.3px;
+    -webkit-font-smoothing: antialiased;
+    transition: background .3s, color .3s;
+  }
+  h1, h2, h3, p, a, button, span, div, li, label, textarea, input { letter-spacing: -0.3px; }
+  .serif { font-family: 'Instrument Serif', serif; font-style: italic; }
+  .container { max-width: 980px; margin: 0 auto; padding: 0 24px; }
+
+  nav {
+    position: sticky; top: 0; z-index: 50;
+    backdrop-filter: blur(16px);
+    background: var(--nav-bg);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; padding: 18px 0; }
+  .logo { font-weight: 800; font-size: 20px; display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--text); }
+  .logo-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 16px var(--accent); }
+  .nav-links { display: flex; gap: 28px; align-items: center; }
+  .nav-links a { color: var(--muted); text-decoration: none; font-size: 14px; font-weight: 500; }
+  .nav-links a:hover { color: var(--text); }
+  .theme-toggle {
+    width: 38px; height: 38px; border-radius: 50%;
+    background: var(--btn-secondary-bg);
+    border: 1px solid var(--border); color: var(--text);
+    cursor: pointer; display: inline-flex; align-items: center; justify-content: center;
+    transition: transform .2s, background .2s;
+  }
+  .theme-toggle:hover { transform: rotate(15deg); background: var(--btn-secondary-hover); }
+  .theme-toggle svg { width: 18px; height: 18px; }
+  .theme-toggle .sun { display: none; } .theme-toggle .moon { display: block; }
+  [data-theme="light"] .theme-toggle .sun { display: block; }
+  [data-theme="light"] .theme-toggle .moon { display: none; }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 14px 24px; border-radius: 100px;
+    font-weight: 600; font-size: 15px; text-decoration: none;
+    transition: all .2s; border: none; cursor: pointer;
+  }
+  .btn-primary { background: var(--accent); color: #fff; box-shadow: 0 8px 32px rgba(255,92,40,0.35); }
+  .btn-primary:hover { transform: translateY(-2px); }
+  .btn-secondary {
+    background: var(--btn-secondary-bg); color: var(--text);
+    border: 1px solid var(--border);
+  }
+  .btn-secondary:hover { background: var(--btn-secondary-hover); }
+
+  header.hero { text-align: center; padding: 80px 0 40px; position: relative; overflow: hidden; }
+  header.hero::before {
+    content: ''; position: absolute; top: -200px; left: 50%; transform: translateX(-50%);
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(255,92,40,0.18) 0%, transparent 60%);
+    filter: blur(60px); z-index: 0;
+  }
+  .hero-inner { position: relative; z-index: 1; }
+  .crumb {
+    color: var(--muted); font-size: 14px; margin-bottom: 16px;
+  }
+  .crumb a { color: var(--muted); text-decoration: none; }
+  .crumb a:hover { color: var(--text); }
+  h1 {
+    font-size: clamp(36px, 5.5vw, 64px);
+    line-height: 1.05; font-weight: 800;
+    margin-bottom: 18px;
+  }
+  h1 .highlight {
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .hero p.sub { color: var(--muted); font-size: 18px; max-width: 620px; margin: 0 auto; }
+
+  main { padding: 40px 0 120px; }
+
+  .checker {
+    background: linear-gradient(180deg, var(--card) 0%, var(--bg-2) 100%);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 32px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  }
+  [data-theme="light"] .checker { box-shadow: 0 20px 60px rgba(20,20,40,0.08); }
+
+  .field { margin-bottom: 20px; }
+  .field label {
+    display: block; font-size: 13px; font-weight: 600;
+    color: var(--muted); text-transform: uppercase; letter-spacing: 1.5px;
+    margin-bottom: 10px;
+  }
+  .field input, .field textarea {
+    width: 100%;
+    background: var(--input-bg);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 14px 16px;
+    color: var(--text);
+    font-size: 15px;
+    font-family: inherit;
+    line-height: 1.5;
+    transition: border-color .2s, background .2s;
+    resize: vertical;
+  }
+  .field input:focus, .field textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    background: var(--input-bg);
+  }
+  .field textarea { min-height: 220px; }
+
+  .actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 8px; }
+
+  /* Results */
+  .result { margin-top: 32px; display: none; }
+  .result.show { display: block; animation: fadeIn .4s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+  .score-block {
+    display: flex; gap: 28px; align-items: center;
+    background: var(--input-bg);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 28px;
+    margin-bottom: 24px;
+  }
+  @media (max-width: 600px) { .score-block { flex-direction: column; text-align: center; } }
+  .score-ring {
+    width: 130px; height: 130px;
+    flex-shrink: 0;
+    position: relative;
+  }
+  .score-ring svg { transform: rotate(-90deg); width: 100%; height: 100%; }
+  .score-ring .bg-ring { stroke: var(--border); }
+  .score-ring .fg-ring {
+    stroke-linecap: round;
+    transition: stroke-dashoffset .8s cubic-bezier(.4,0,.2,1), stroke .4s;
+  }
+  .score-ring .label {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+  }
+  .score-ring .num { font-size: 36px; font-weight: 800; line-height: 1; }
+  .score-ring .of { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  .score-meta h2 { font-size: 26px; font-weight: 800; margin-bottom: 6px; }
+  .score-meta p { color: var(--muted); font-size: 15px; }
+  .verdict-good   .num, .verdict-good   h2 { color: var(--green); }
+  .verdict-good   .fg-ring { stroke: var(--green); }
+  .verdict-warn   .num, .verdict-warn   h2 { color: var(--yellow); }
+  .verdict-warn   .fg-ring { stroke: var(--yellow); }
+  .verdict-bad    .num, .verdict-bad    h2 { color: var(--red); }
+  .verdict-bad    .fg-ring { stroke: var(--red); }
+
+  .breakdown {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px; margin-bottom: 24px;
+  }
+  .stat {
+    background: var(--input-bg);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 14px 16px;
+  }
+  .stat .stat-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--muted); margin-bottom: 4px; }
+  .stat .stat-value { font-size: 22px; font-weight: 700; }
+  .stat.warn .stat-value { color: var(--yellow); }
+  .stat.bad .stat-value { color: var(--red); }
+  .stat.good .stat-value { color: var(--green); }
+
+  .panel {
+    background: var(--input-bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 16px;
+  }
+  .panel h3 {
+    font-size: 16px; font-weight: 700; margin-bottom: 12px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .panel ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .panel li {
+    display: flex; gap: 10px; font-size: 14px; color: var(--text);
+    align-items: flex-start;
+  }
+  .panel li::before { content: '•'; color: var(--accent); flex-shrink: 0; }
+  .panel.empty li::before { color: var(--green); content: '✓'; }
+
+  .preview {
+    background: var(--input-bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px;
+    font-size: 14px;
+    line-height: 1.7;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    color: var(--muted);
+    max-height: 320px; overflow-y: auto;
+  }
+  .preview mark {
+    background: var(--highlight-bg);
+    color: var(--text);
+    padding: 1px 4px;
+    border-radius: 4px;
+    font-weight: 600;
+    text-decoration: underline wavy var(--accent);
+    text-underline-offset: 3px;
+  }
+
+  .cta-strip {
+    margin-top: 40px;
+    background: linear-gradient(135deg, rgba(255,92,40,0.15), rgba(255,179,71,0.08));
+    border: 1px solid rgba(255,92,40,0.25);
+    border-radius: 20px;
+    padding: 32px;
+    display: flex; align-items: center; gap: 24px;
+    flex-wrap: wrap; justify-content: space-between;
+  }
+  .cta-strip h3 { font-size: 22px; font-weight: 700; margin-bottom: 6px; }
+  .cta-strip p { color: var(--muted); font-size: 15px; }
+
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 40px 0; text-align: center;
+    color: var(--muted); font-size: 14px;
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="container nav-inner">
+    <a class="logo" href="../../"><span class="logo-dot"></span>coldemail.club</a>
+    <div class="nav-links">
+      <a href="../../#how">How it works</a>
+      <a href="../">Tools</a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      </button>
+      <a href="../../#book" class="btn btn-primary">Book a call 🤙</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="container hero-inner">
+    <div class="crumb"><a href="../">Tools</a> &nbsp;/&nbsp; Spam Score Checker</div>
+    <h1>Will your cold email <span class="highlight">land in spam?</span></h1>
+    <p class="sub">Paste your subject line and email body. Get an instant spam score, flagged phrases, and exactly how to fix them. 100% free, no signup.</p>
+  </div>
+</header>
+
+<main>
+  <div class="container">
+    <div class="checker">
+      <div class="field">
+        <label for="subject">Subject line</label>
+        <input type="text" id="subject" placeholder="e.g. Quick question about your Q2 pipeline" />
+      </div>
+      <div class="field">
+        <label for="body">Email body</label>
+        <textarea id="body" placeholder="Hi {{firstName}},&#10;&#10;Saw what you're doing at {{company}}..."></textarea>
+      </div>
+      <div class="actions">
+        <button class="btn btn-primary" id="checkBtn">Check spam score →</button>
+        <button class="btn btn-secondary" id="sampleBtn">Try a sample</button>
+        <button class="btn btn-secondary" id="clearBtn">Clear</button>
+      </div>
+
+      <div class="result" id="result">
+        <div class="score-block" id="scoreBlock">
+          <div class="score-ring">
+            <svg viewBox="0 0 120 120">
+              <circle class="bg-ring" cx="60" cy="60" r="52" fill="none" stroke-width="10"/>
+              <circle class="fg-ring" id="fgRing" cx="60" cy="60" r="52" fill="none" stroke-width="10"
+                stroke-dasharray="326.7" stroke-dashoffset="326.7"/>
+            </svg>
+            <div class="label">
+              <div class="num" id="scoreNum">—</div>
+              <div class="of">/ 100</div>
+            </div>
+          </div>
+          <div class="score-meta">
+            <h2 id="verdict">Analyzing…</h2>
+            <p id="verdictDesc">We'll show you what we found.</p>
+          </div>
+        </div>
+
+        <div class="breakdown" id="breakdown"></div>
+
+        <div class="panel" id="flaggedPanel">
+          <h3>🚩 Flagged phrases</h3>
+          <ul id="flaggedList"></ul>
+        </div>
+
+        <div class="panel" id="issuesPanel">
+          <h3>⚠️ Formatting & structure</h3>
+          <ul id="issuesList"></ul>
+        </div>
+
+        <div class="panel" id="winsPanel">
+          <h3>✅ What's working</h3>
+          <ul id="winsList"></ul>
+        </div>
+
+        <div class="panel">
+          <h3>🔍 Your email (flagged inline)</h3>
+          <div class="preview" id="preview"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-strip">
+      <div>
+        <h3>Want a human review?</h3>
+        <p>We'll audit your entire sequence and rewrite it for free. No catch.</p>
+      </div>
+      <a href="../../#book" class="btn btn-primary">Get a free email audit →</a>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="logo" style="justify-content:center;margin-bottom:8px;"><span class="logo-dot"></span>coldemail.club</div>
+    © 2026 coldemail.club — Cold emails that get replies.
+  </div>
+</footer>
+
+<script>
+  // Theme toggle
+  (function(){
+    const root = document.documentElement;
+    if (localStorage.getItem('theme') === 'light') root.setAttribute('data-theme', 'light');
+    document.getElementById('themeToggle').addEventListener('click', () => {
+      const isLight = root.getAttribute('data-theme') === 'light';
+      if (isLight) { root.removeAttribute('data-theme'); localStorage.setItem('theme', 'dark'); }
+      else { root.setAttribute('data-theme', 'light'); localStorage.setItem('theme', 'light'); }
+    });
+  })();
+
+  // Spam trigger word library — weighted
+  const SPAM_PHRASES = [
+    // High risk
+    { phrase: 'free money', weight: 12 }, { phrase: 'risk-free', weight: 10 },
+    { phrase: '100% free', weight: 10 }, { phrase: 'no cost', weight: 8 },
+    { phrase: 'no obligation', weight: 7 }, { phrase: 'no fees', weight: 7 },
+    { phrase: 'guaranteed', weight: 9 }, { phrase: 'guarantee', weight: 6 },
+    { phrase: 'act now', weight: 10 }, { phrase: 'apply now', weight: 8 },
+    { phrase: 'buy now', weight: 9 }, { phrase: 'click here', weight: 9 },
+    { phrase: 'click below', weight: 7 }, { phrase: 'order now', weight: 8 },
+    { phrase: 'limited time', weight: 8 }, { phrase: 'limited offer', weight: 8 },
+    { phrase: 'urgent', weight: 7 }, { phrase: 'hurry', weight: 6 },
+    { phrase: 'cash bonus', weight: 10 }, { phrase: 'cash prize', weight: 10 },
+    { phrase: 'congratulations', weight: 6 }, { phrase: 'winner', weight: 6 },
+    { phrase: 'you have been selected', weight: 10 },
+    { phrase: 'special promotion', weight: 7 }, { phrase: 'exclusive deal', weight: 6 },
+    { phrase: 'amazing', weight: 4 }, { phrase: 'incredible', weight: 4 },
+    { phrase: 'best price', weight: 6 }, { phrase: 'lowest price', weight: 6 },
+    { phrase: 'cheap', weight: 5 }, { phrase: 'deal', weight: 3 },
+    { phrase: 'earn money', weight: 10 }, { phrase: 'make money', weight: 10 },
+    { phrase: 'extra income', weight: 9 }, { phrase: 'work from home', weight: 7 },
+    { phrase: 'be your own boss', weight: 8 },
+    { phrase: 'increase sales', weight: 4 }, { phrase: 'boost your', weight: 3 },
+    { phrase: 'double your', weight: 6 }, { phrase: 'triple your', weight: 7 },
+    { phrase: 'unsubscribe', weight: 4 }, { phrase: 'this is not spam', weight: 12 },
+    { phrase: 'not a scam', weight: 10 }, { phrase: 'pre-approved', weight: 9 },
+    { phrase: 'congrats', weight: 5 }, { phrase: 'dear friend', weight: 7 },
+    { phrase: 'dear sir', weight: 5 }, { phrase: 'dear madam', weight: 5 },
+    { phrase: 'opportunity', weight: 3 }, { phrase: 'investment', weight: 3 },
+    { phrase: 'crypto', weight: 4 }, { phrase: 'bitcoin', weight: 5 },
+    { phrase: 'viagra', weight: 15 }, { phrase: 'enlarge', weight: 12 },
+    { phrase: 'weight loss', weight: 8 }, { phrase: 'lose weight', weight: 7 },
+    { phrase: 'miracle', weight: 6 }, { phrase: 'pure profit', weight: 9 },
+    { phrase: 'million dollars', weight: 9 }, { phrase: 'cash', weight: 3 },
+    { phrase: 'sales', weight: 2 }, { phrase: 'discount', weight: 4 },
+    { phrase: 'save big', weight: 6 }, { phrase: 'huge savings', weight: 6 },
+    { phrase: 'subscribe', weight: 3 }, { phrase: 'reply now', weight: 7 },
+    { phrase: 'don\'t hesitate', weight: 4 }, { phrase: 'this won\'t last', weight: 7 }
+  ];
+
+  function escapeRegex(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+  function escapeHtml(s) { return s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+  function analyze(subject, body) {
+    const full = (subject + '\n' + body).toLowerCase();
+    const flagged = [];
+    let phraseWeight = 0;
+
+    for (const {phrase, weight} of SPAM_PHRASES) {
+      const re = new RegExp('\\b' + escapeRegex(phrase) + '\\b', 'gi');
+      const matches = (subject + ' ' + body).match(re);
+      if (matches && matches.length) {
+        flagged.push({ phrase, count: matches.length, weight: weight * matches.length });
+        phraseWeight += weight * matches.length;
+      }
+    }
+
+    const issues = [];
+    const wins = [];
+
+    // Subject checks
+    const subj = subject.trim();
+    if (!subj) {
+      issues.push({ msg: 'No subject line provided — subject is the #1 factor in open rates.', weight: 5 });
+    } else {
+      if (subj.length > 60) issues.push({ msg: `Subject is ${subj.length} chars — keep it under 50 for mobile clipping.`, weight: 3 });
+      else if (subj.length < 30 && subj.length > 0) wins.push('Short subject line — great for mobile inboxes.');
+      if (/[!?]{2,}/.test(subj)) issues.push({ msg: 'Multiple punctuation marks in subject (!! or ??) — major spam signal.', weight: 6 });
+      if (subj === subj.toUpperCase() && subj.length > 4) issues.push({ msg: 'Subject is ALL CAPS — strong spam signal.', weight: 8 });
+      const upperWords = subj.split(/\s+/).filter(w => w.length >= 4 && w === w.toUpperCase() && /[A-Z]/.test(w));
+      if (upperWords.length >= 2) issues.push({ msg: `Subject has ${upperWords.length} ALL-CAPS words — looks shouty.`, weight: 4 });
+      if (/[€$£¥]|\bUSD\b|\bEUR\b/.test(subj)) issues.push({ msg: 'Currency symbol in subject line — common spam pattern.', weight: 4 });
+      if (/^re:/i.test(subj) && !body.toLowerCase().includes('re:')) issues.push({ msg: 'Fake "Re:" prefix without a real thread — looks deceptive to filters.', weight: 6 });
+    }
+
+    // Body checks
+    const bodyTrim = body.trim();
+    const wordCount = bodyTrim ? bodyTrim.split(/\s+/).length : 0;
+    if (wordCount === 0) issues.push({ msg: 'Empty body.', weight: 10 });
+    else {
+      if (wordCount > 200) issues.push({ msg: `Body is ${wordCount} words — top-performing cold emails are 50–125 words.`, weight: 4 });
+      else if (wordCount < 30) issues.push({ msg: `Body is only ${wordCount} words — usually too thin to land a reply.`, weight: 2 });
+      else wins.push(`Body length (${wordCount} words) is in the sweet spot.`);
+
+      // Excessive punctuation
+      const exclam = (body.match(/!/g) || []).length;
+      if (exclam >= 3) issues.push({ msg: `${exclam} exclamation marks — drop most of them.`, weight: Math.min(8, exclam * 1.5) });
+
+      // Caps ratio
+      const letters = body.replace(/[^a-zA-Z]/g, '');
+      const upper = body.replace(/[^A-Z]/g, '');
+      const capsRatio = letters.length ? upper.length / letters.length : 0;
+      if (capsRatio > 0.3) issues.push({ msg: `${Math.round(capsRatio*100)}% of letters are uppercase — way too shouty.`, weight: 7 });
+
+      // Links
+      const links = (body.match(/https?:\/\/[^\s]+/gi) || []).length;
+      if (links > 3) issues.push({ msg: `${links} links in body — keep it to 1 to look human.`, weight: 5 });
+      else if (links === 0 && wordCount > 50) wins.push('No links in body — looks more like a real human email.');
+      else if (links <= 1) wins.push('Link count is sane.');
+
+      // Personalization signal
+      if (/\{\{\s*\w+\s*\}\}|\[\s*\w+\s*\]|<<\s*\w+\s*>>/.test(body) || /\{\{\s*\w+\s*\}\}/.test(subject)) {
+        wins.push('Personalization tokens detected — good.');
+      } else if (wordCount > 50) {
+        issues.push({ msg: 'No personalization tokens — generic cold emails get filtered fast.', weight: 3 });
+      }
+
+      // Question mark in body (engages reply)
+      if (/\?/.test(body)) wins.push('Body asks a question — invites replies.');
+      else if (wordCount > 50) issues.push({ msg: 'No question in the body — ask one to drive replies.', weight: 2 });
+
+      // Signature signal
+      if (/(thanks|cheers|best|regards|sincerely)[\s,.\n]/i.test(body)) wins.push('Signature / sign-off detected.');
+      else issues.push({ msg: 'No sign-off detected — emails without one look like bots.', weight: 2 });
+
+      // Image-only / HTML-heavy
+      if (/<img/i.test(body)) issues.push({ msg: 'Image tag detected — image-heavy emails trigger spam filters.', weight: 5 });
+      if (/<table/i.test(body)) issues.push({ msg: 'Table HTML detected — plain text outperforms heavy HTML for cold.', weight: 4 });
+    }
+
+    const issueWeight = issues.reduce((a, b) => a + (b.weight || 0), 0);
+
+    // Final score: start at 100, subtract
+    let score = 100 - phraseWeight - issueWeight;
+    score = Math.max(0, Math.min(100, score));
+
+    return { score: Math.round(score), flagged, issues, wins, wordCount };
+  }
+
+  function highlightPreview(subject, body, flagged) {
+    let html = '';
+    if (subject) html += '<strong>Subject:</strong> ' + escapeHtml(subject) + '\n\n';
+    html += escapeHtml(body);
+    for (const f of flagged) {
+      const re = new RegExp('\\b(' + escapeRegex(f.phrase) + ')\\b', 'gi');
+      html = html.replace(re, '<mark>$1</mark>');
+    }
+    return html;
+  }
+
+  function setVerdict(score) {
+    const block = document.getElementById('scoreBlock');
+    const verdict = document.getElementById('verdict');
+    const desc = document.getElementById('verdictDesc');
+    const num = document.getElementById('scoreNum');
+    const ring = document.getElementById('fgRing');
+    block.classList.remove('verdict-good','verdict-warn','verdict-bad');
+
+    num.textContent = score;
+    const circumference = 2 * Math.PI * 52;
+    ring.style.strokeDasharray = circumference;
+    ring.style.strokeDashoffset = circumference - (score / 100) * circumference;
+
+    if (score >= 80) {
+      block.classList.add('verdict-good');
+      verdict.textContent = 'Looking good 🎉';
+      desc.textContent = 'Your email should land in the inbox. A few small tweaks could push it higher.';
+    } else if (score >= 55) {
+      block.classList.add('verdict-warn');
+      verdict.textContent = 'Mixed signals';
+      desc.textContent = 'Likely to land — but some spam filters will flag it. See fixes below.';
+    } else {
+      block.classList.add('verdict-bad');
+      verdict.textContent = 'High spam risk';
+      desc.textContent = 'This email will struggle to reach the inbox. Fix the issues below first.';
+    }
+  }
+
+  function renderBreakdown(r) {
+    const el = document.getElementById('breakdown');
+    el.innerHTML = '';
+    const items = [
+      { label: 'Word count', value: r.wordCount, cls: r.wordCount >= 50 && r.wordCount <= 125 ? 'good' : (r.wordCount === 0 ? 'bad' : 'warn') },
+      { label: 'Flagged phrases', value: r.flagged.length, cls: r.flagged.length === 0 ? 'good' : (r.flagged.length > 4 ? 'bad' : 'warn') },
+      { label: 'Structure issues', value: r.issues.length, cls: r.issues.length === 0 ? 'good' : (r.issues.length > 4 ? 'bad' : 'warn') },
+      { label: 'Wins', value: r.wins.length, cls: 'good' }
+    ];
+    for (const it of items) {
+      const s = document.createElement('div');
+      s.className = 'stat ' + it.cls;
+      s.innerHTML = `<div class="stat-label">${it.label}</div><div class="stat-value">${it.value}</div>`;
+      el.appendChild(s);
+    }
+  }
+
+  function renderList(panelId, listId, items, emptyMsg) {
+    const panel = document.getElementById(panelId);
+    const list = document.getElementById(listId);
+    list.innerHTML = '';
+    if (!items.length) {
+      panel.classList.add('empty');
+      const li = document.createElement('li');
+      li.textContent = emptyMsg;
+      list.appendChild(li);
+    } else {
+      panel.classList.remove('empty');
+      for (const it of items) {
+        const li = document.createElement('li');
+        li.textContent = typeof it === 'string' ? it : (it.phrase ? `"${it.phrase}" (×${it.count})` : it.msg);
+        list.appendChild(li);
+      }
+    }
+  }
+
+  function run() {
+    const subject = document.getElementById('subject').value;
+    const body = document.getElementById('body').value;
+    if (!subject.trim() && !body.trim()) {
+      alert('Paste a subject line and/or email body first.');
+      return;
+    }
+    const r = analyze(subject, body);
+    document.getElementById('result').classList.add('show');
+    setVerdict(r.score);
+    renderBreakdown(r);
+    renderList('flaggedPanel', 'flaggedList', r.flagged, 'No spammy phrases detected. Nice.');
+    renderList('issuesPanel', 'issuesList', r.issues, 'No structure or formatting issues found.');
+    renderList('winsPanel', 'winsList', r.wins, 'No specific strengths detected yet — try the suggestions above.');
+    document.getElementById('preview').innerHTML = highlightPreview(subject, body, r.flagged);
+    document.getElementById('result').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  document.getElementById('checkBtn').addEventListener('click', run);
+
+  document.getElementById('clearBtn').addEventListener('click', () => {
+    document.getElementById('subject').value = '';
+    document.getElementById('body').value = '';
+    document.getElementById('result').classList.remove('show');
+  });
+
+  document.getElementById('sampleBtn').addEventListener('click', () => {
+    document.getElementById('subject').value = 'CONGRATULATIONS!! You\'ve been selected for a FREE consultation';
+    document.getElementById('body').value =
+`Dear Friend,
+
+ACT NOW and don't miss this LIMITED TIME offer! We guarantee 100% risk-free results that will double your sales overnight.
+
+Click here to claim your free money: https://example.com/promo
+Or click below: https://example.com/deal
+Or apply now: https://example.com/apply
+
+This is not spam. We promise. Pre-approved offer just for you!!!
+
+Hurry — this won't last!!!`;
+    run();
+  });
+</script>
+</body>
+</html>
